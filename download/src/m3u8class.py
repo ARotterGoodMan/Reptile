@@ -49,7 +49,7 @@ class GetM3u8(object):
             self.download_num += 1
             print(f"{name}   ok!!!")
 
-    async def merge_ts_bat(self):
+    async def merge_ts(self):
         async with aiofiles.open("video_ts\\merge.bat", mode="a", encoding="utf-8") as merge:
             await merge.write("copy /b ")
             with open("index.m3u8", mode="r", encoding="utf-8") as f:
@@ -61,6 +61,7 @@ class GetM3u8(object):
                     await merge.write(f'{file_name}+')
             await merge.write(" movie.mp4")
         self.update_merge_bat()
+        self.run_bat()
 
     def update_merge_bat(self):
         merge_read = open("video_ts\\merge.bat", mode="r", encoding="utf-8")
@@ -87,7 +88,6 @@ class GetM3u8(object):
         loop.run_until_complete(self.structure_url(url))
         print("视频片段下载完成开始合并视频！！！！")
         time.sleep(2)
-        loop.run_until_complete(self.merge_ts_bat())
+        loop.run_until_complete(self.merge_ts())
         # asyncio.run(self.structure_url())
         # asyncio.run(self.merge_ts_bat())
-        self.run_bat()
