@@ -8,4 +8,4 @@ if __name__ == '__main__':
     url = input("请输入要拉取的m3u8文件：")
     FilmLibrary.run(url)
     GetM3u8 = m3u8class.GetM3u8()
-    GetM3u8.main()
+    GetM3u8.main(url)
