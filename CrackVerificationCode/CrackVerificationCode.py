@@ -49,6 +49,6 @@ class CrackVerificationCode(object):
 
 
 if __name__ == '__main__':
-    CrackVerificationCode = CrackVerificationCode('sxy12363', 'Shao264419', '932825')  # 用户中心>>软件ID 生成一个替换 96001
+    CrackVerificationCode = CrackVerificationCode('xxxxxx', 'xxxxxx', 'xxxxxx')  # 用户中心>>软件ID 生成一个替换 96001
     image = open('a.jpg', 'rb').read()  # 本地图片文件路径 来替换 a.jpg 有时WIN系统须要//
     print(CrackVerificationCode.post_pic(image, 1902)['pic_str'])  # 1902 验证码类型  官方网站>>价格体系 3.4+版 print 后要加()
