@@ -5,7 +5,7 @@ import asyncio
 import os
 
 
-class GetM3u8(object):
+class Download(object):
     def __init__(self):
         self.download_num = 0
         self.download_over_num = 0
