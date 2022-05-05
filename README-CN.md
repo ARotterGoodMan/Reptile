@@ -1,8 +1,8 @@
 # 这是一种用于练习的爬行动物
 
-## “CrackVerificationCode”是从 <a href='https://www.chaojiying.com'> https://www.chaojiying.com </a> 下载的
+## “CrackVerificationCode”是从 <a href='https://www.chaojiying.com'  target="_blank" > https://www.chaojiying.com </a> 下载的
 
-## “download”是从 <a href='https://www.pianku.la'> https://www.pianku.la 下载视频
+## “download”是从 <a href='https://www.pianku.la' target="_blank"> https://www.pianku.la 下载视频
 
 ## “progressbar”是一个进度条
 
