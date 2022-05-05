@@ -41,15 +41,14 @@ class Download(object):
                 await asyncio.wait(tasks)
 
     async def send_request(self, ts_url, session):
-        pass
-        # name = ts_url.split("/")[-1]
-        # if not os.path.exists("video_ts"):
-        #     os.system("mkdir video_ts")
-        # async with session.request("get", ts_url) as resp:
-        #     async with aiofiles.open(f"video_ts/{name}", "wb") as f:
-        #         await f.write(await resp.content.read())
-        # self.download_over_num += 1
-        # print(f"{name}  OK!!!")
+        name = ts_url.split("/")[-1]
+        if not os.path.exists("video_ts"):
+            os.system("mkdir video_ts")
+        async with session.request("get", ts_url) as resp:
+            async with aiofiles.open(f"video_ts/{name}", "wb") as f:
+                await f.write(await resp.content.read())
+        self.download_over_num += 1
+        print(f"{name}  OK!!!")
 
     async def merge_ts(self):
         async with aiofiles.open("video_ts\\merge.bat", mode="a", encoding="utf-8") as merge:
