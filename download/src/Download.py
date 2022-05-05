@@ -21,6 +21,8 @@ class Download(object):
                 async for line in f:
                     if line.startswith("#"):
                         continue
+                    else:
+                        self.download_num += 1
                     if line.startswith("http"):
                         line = line.strip()
                     else:
@@ -36,18 +38,18 @@ class Download(object):
                     ts_url = line
                     task = asyncio.create_task(self.send_request(ts_url, session))
                     tasks.append(task)
-            await asyncio.wait(tasks)
-            self.download_num = len(indexes)
+                await asyncio.wait(tasks)
 
     async def send_request(self, ts_url, session):
-        name = ts_url.split("/")[-1]
-        if not os.path.exists("video_ts"):
-            os.system("mkdir video_ts")
-        async with session.request("get", ts_url) as resp:
-            async with aiofiles.open(f"video_ts/{name}", "wb") as f:
-                await f.write(await resp.content.read())
-            self.download_num += 1
-            print(f"{name}   ok!!!")
+        pass
+        # name = ts_url.split("/")[-1]
+        # if not os.path.exists("video_ts"):
+        #     os.system("mkdir video_ts")
+        # async with session.request("get", ts_url) as resp:
+        #     async with aiofiles.open(f"video_ts/{name}", "wb") as f:
+        #         await f.write(await resp.content.read())
+        # self.download_over_num += 1
+        # print(f"{name}  OK!!!")
 
     async def merge_ts(self):
         async with aiofiles.open("video_ts\\merge.bat", mode="a", encoding="utf-8") as merge:
@@ -88,6 +90,6 @@ class Download(object):
         loop.run_until_complete(self.structure_url(url))
         print("视频片段下载完成开始合并视频！！！！")
         time.sleep(2)
-        loop.run_until_complete(self.merge_ts())
+        # loop.run_until_complete(self.merge_ts())
         # asyncio.run(self.structure_url())
         # asyncio.run(self.merge_ts_bat())

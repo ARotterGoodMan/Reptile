@@ -7,6 +7,5 @@ if __name__ == '__main__':
     FilmLibrary = FilmLibrary.FilmLibrary()
     url = input("请输入要拉取的m3u8文件：")
     FilmLibrary.run(url)
-    Download = Download.GetM3u8()
+    Download = Download.Download()
     Download.main(url)
-    下载
