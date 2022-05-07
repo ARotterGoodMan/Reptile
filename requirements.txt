@@ -7,4 +7,3 @@ pyppeteer
 lxml
 pycryptodome
 progressbar
-progress
