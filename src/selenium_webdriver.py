@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
     @Project ：school
-    @File ：se.py
+    @File ：selenium_webdriver.py
     @Author ：ARotterGoodMan
     @Date ：2022/5/27 21:25
 """
