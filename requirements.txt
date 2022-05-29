@@ -2,7 +2,7 @@ aiohttp
 aiofiles
 requests
 bs4
-selenium==4.2.0
+selenium
 pyppeteer
 lxml
 pycryptodome
