@@ -59,5 +59,5 @@ def run():
             school_name = school[0].strip()
             school_href = school[1].strip()
             # 将学校名称和学校链接写入csv文件
-            with open("../data/school.csv", "a", encoding="utf-8") as f:
+            with open("../AcquiredData/school.csv", "a", encoding="utf-8") as f:
                 f.write(school_name + "," + school_href + "\n")

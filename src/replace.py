@@ -17,6 +17,16 @@ def alter(file, old_str, new_str):
     os.rename("%s.bak" % file, file)
 
 
+def read_csv():
+    with open("../AcquiredData/school.csv", "r", encoding="utf-8") as f:
+        number = 0
+        for line in f:
+            with open("../AcquiredData/school_need.bat", "a", encoding="utf-8") as f1:
+                # 以,分割每一行
+                f1.write(f"ren {line.split(',')[0]}.html {number}.html\n")
+                number += 1
+
+
 def run():
     for file in os.listdir("../html"):
         # 获取文件名
@@ -29,22 +39,7 @@ def run():
         #     # 将文件中的/zsgs/zhangcheng/listZszc--schId-5410609.dhtml替换为空
         alter(file_name, r"/zsgs/zhangcheng/listZszc--schId-\d{1,10}.dhtml", "")
         # 将html下的文件名去除.html并写入school_have.txt
-    with open("../data/school_have.txt", "w", encoding="utf-8") as f:
+    with open("../AcquiredData/school_have.txt", "w", encoding="utf-8") as f:
         for file in os.listdir("../html"):
             f.write(file.replace(".html", "") + "\n")
-
-
-# 逐行读取scool.csv文件，并将其写入school_need.txt
-
-def read_csv():
-    with open("../data/school.csv", "r", encoding="utf-8") as f:
-        number = 0
-        for line in f:
-            with open("../data/school_need.bat", "a", encoding="utf-8") as f1:
-                # 以,分割每一行
-                f1.write(f"ren {line.split(',')[0]}.html {number}.html\n")
-                number += 1
-
-
-if __name__ == '__main__':
     read_csv()

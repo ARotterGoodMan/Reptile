@@ -63,7 +63,7 @@ def run():
     os.system("chcp 65001\nmkdir ../html")
     loop = asyncio.get_event_loop()
     tasks = []
-    with open('../data/school_links.txt', 'r', encoding='utf-8') as f:
+    with open('../AcquiredData/school_links.txt', 'r', encoding='utf-8') as f:
         for line in f.readlines():
             line = line.strip()
             lines = line.split(',')
