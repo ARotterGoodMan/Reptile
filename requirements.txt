@@ -1,0 +1,9 @@
+aiohttp
+aiofiles
+requests
+bs4
+selenium==4.2.0
+pyppeteer
+lxml
+pycryptodome
+progressbar
