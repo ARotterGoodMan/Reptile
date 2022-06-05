@@ -20,11 +20,13 @@ for i in range(28):
 header = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                         "Chrome/102.0.5005.13 Safari/537.36Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.13 Safari/537.36",
-          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,"
+                    "*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
           }
 
 req = requests.get(url="https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--method-index,lb-1,start-0.dhtml",
                    headers=header)
+dirs = ["AcquiredData", "html", "Province"]
 
 
 async def get_html(url):
@@ -47,13 +49,6 @@ def parse_html(html):
 
 
 def run():
-    # 判断是否存在文件夹
-    if not os.path.exists("./AcquiredData"):
-        os.mkdir("./AcquiredData")
-    if not os.path.exists("./html"):
-        os.mkdir("./html")
-    if not os.path.exists("./Province"):
-        os.mkdir("./Province")
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     tasks = [get_html(url) for url in url_list]
@@ -64,5 +59,7 @@ def run():
             school_name = school[0].strip()
             school_href = school[1].strip()
             # 将学校名称和学校链接写入csv文件
+            if not os.path.exists("AcquiredData"):
+                os.makedirs("AcquiredData")
             with open("AcquiredData/school.csv", "a", encoding="utf-8") as f:
                 f.write(school_name + "," + school_href + "\n")

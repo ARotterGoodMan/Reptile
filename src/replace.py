@@ -43,8 +43,4 @@ def run():
         alter(file_name, r"/zsgs/zhangcheng/listVerifedZszc--method-index,lb-\d{1,10}.dhtml", r"/school")
         #     # 将文件中的/zsgs/zhangcheng/listZszc--schId-5410609.dhtml替换为空
         alter(file_name, r"/zsgs/zhangcheng/listZszc--schId-\d{1,10}.dhtml", "")
-        # 将html下的文件名去除.html并写入school_have.txt
-    with open("AcquiredData/school_have.txt", "w", encoding="utf-8") as f:
-        for file in os.listdir("html"):
-            f.write(file.replace(".html", "") + "\n")
     read_csv()

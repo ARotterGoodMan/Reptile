@@ -57,7 +57,7 @@ def run():
         school_list = parse_html(html)
         for school in school_list:
             school_name = school[0].strip()
-            with open(f"../haves.txt", "a", encoding="utf-8") as f:
+            with open(f"../AcquiredData/school_have.txt", "a", encoding="utf-8") as f:
                 f.write(school_name + "\n")
 
 
