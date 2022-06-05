@@ -22,10 +22,12 @@ def read_csv():
         number = 0
         with open("AcquiredData/school_need.bat", "a", encoding="utf-8") as f1:
             f1.write("chcp 65001\n")
+            f1.write("cd html\n")
             for line in f:
                 # 以,分割每一行
                 f1.write(f"ren {line.split(',')[0]}.html {number}.html\n")
                 number += 1
+        os.system("AcquiredData/school_need.bat")
 
 
 def run():

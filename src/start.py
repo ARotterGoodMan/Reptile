@@ -9,6 +9,7 @@ import aiohttp
 import asyncio
 from lxml import etree
 import requests
+import os
 
 url_list = []
 for i in range(28):
@@ -46,6 +47,13 @@ def parse_html(html):
 
 
 def run():
+    # 判断是否存在文件夹
+    if not os.path.exists("./AcquiredData"):
+        os.mkdir("./AcquiredData")
+    if not os.path.exists("./html"):
+        os.mkdir("./html")
+    if not os.path.exists("./Province"):
+        os.mkdir("./Province")
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     tasks = [get_html(url) for url in url_list]
