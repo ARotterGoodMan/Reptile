@@ -48,18 +48,37 @@ def parse_html(html):
     return school_list
 
 
-def run():
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    tasks = [get_html(url) for url in url_list]
-    htmls = loop.run_until_complete(asyncio.gather(*tasks))
+def parse_html_have(html):
+    html = etree.HTML(html)
+    school_name = html.xpath('/html/body/div[3]/table[2]/tbody/tr/td/a[not(@style)]/text()')
+    school_list = []
+    for i in range(len(school_name)):
+        school_list.append([school_name[i]])
+    return school_list
+
+
+def write_school_name(htmls):
     for html in htmls:
         school_list = parse_html(html)
+        school_list_have = parse_html_have(html)
         for school in school_list:
             school_name = school[0].strip()
             school_href = school[1].strip()
-            # 将学校名称和学校链接写入csv文件
             if not os.path.exists("AcquiredData"):
                 os.makedirs("AcquiredData")
             with open("AcquiredData/school.csv", "a", encoding="utf-8") as f:
                 f.write(school_name + "," + school_href + "\n")
+        for school in school_list_have:
+            school_name = school[0].strip()
+            if not os.path.exists("AcquiredData"):
+                os.makedirs("AcquiredData")
+            with open("AcquiredData/school_have.txt", "a", encoding="utf-8") as f:
+                f.write(school_name + "\n")
+
+
+def main():
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    tasks = [get_html(url) for url in url_list]
+    htmls = loop.run_until_complete(asyncio.gather(*tasks))
+    write_school_name(htmls)

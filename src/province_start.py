@@ -28,41 +28,47 @@ header = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/5
           }
 
 
-async def get_html(url):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
-            province_id = re.split(r"ssdm-", url)[1].split(",")[0]
-            return province_id, await resp.text(),
+async def get_html(url, session):
+    async with session.get(url) as resp:
+        province_id = re.split(r"ssdm-", url)[1].split(",")[0]
+        return province_id, await resp.text()
 
-        # 将返回值使用xpath解析
+
+async def start_session():
+    tasks = []
+    datas = []
+    async with aiohttp.ClientSession() as session:
+        for url in url_list:
+            tasks.append(asyncio.create_task(get_html(url, session)))
+        await asyncio.wait(tasks)
+        for task in tasks:
+            datas.append(task.result())
+    return datas
 
 
 def parse_html(html):
     html = etree.HTML(html)
-    # 获取所有的tr里td的a标签的内容
     school_name = html.xpath('/html/body/div[3]/table[2]/tbody/tr/td/a/text()')
-    # 将school_name和school_href创建成数组
     school_list = []
     for i in range(len(school_name)):
         school_list.append([school_name[i]])
     return school_list
 
 
-def run():
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    tasks = [get_html(url) for url in url_list]
-    datas = loop.run_until_complete(asyncio.gather(*tasks))
+def write_province(datas):
     for data in datas:
         html = data[1]
         school_list = parse_html(html)
         for school in school_list:
             school_name = school[0].strip()
-            # 将学校名称和学校链接写入csv文件
             if not os.path.exists("Province"):
                 os.makedirs("Province")
             with open(f"Province/{data[0]}.txt", "a", encoding="utf-8") as f:
                 f.write(school_name + "\n")
 
 
-run()
+def main():
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    datas = loop.run_until_complete(start_session())
+    write_province(datas)
