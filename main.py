@@ -5,11 +5,18 @@
     @Author ：ARotterGoodMan
     @Date ：2022/5/27 15:48
 """
-from src import start, selenium_webdriver, GitContent, province_start, replace
+from src import start, Confirm, selenium_webdriver, GitContent, province_start, replace
 
 if __name__ == '__main__':
+    input('请输入任意键开始')
     start.main()
+    Confirm.main("链接获取", "继续内容链接获取")
     selenium_webdriver.main()
+    Confirm.main("内容链接获取", "继续内容链接获取")
     GitContent.main()
+    Confirm.main("继续内容链接获取", "获取省份院校分类")
     province_start.main()
+    Confirm.main("获取省份院校分类", "继续更改文件名")
     replace.main()
+    input("完成,按回车退出")
+    exit()

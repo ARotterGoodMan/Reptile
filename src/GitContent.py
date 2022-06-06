@@ -5,11 +5,12 @@
     @Author ：ARotterGoodMan
     @Date ：2022/5/27 22:27
 """
+import os
+import re
 import asyncio
 import aiohttp
 import aiofiles
-import os
-import re
+from tqdm import tqdm
 
 header = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                         "Chrome/102.0.5005.13 Safari/537.36Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -55,10 +56,15 @@ async def get_html(session, school, url):
 
 
 async def start_session():
+    f = open("AcquiredData/school_links.txt", "r", encoding="utf-8")
+    lines = f.readlines()
+    lines_num = len(lines)
+    f.close()
     tasks = []
     async with aiohttp.ClientSession(headers=header) as session:
         async with aiofiles.open('AcquiredData/school_links.txt', 'r', encoding='utf-8') as f:
-            for line in await f.readlines():
+            for i in tqdm(range(0, lines_num)):
+                line = await f.readline()
                 line = line.strip()
                 lines = line.split(', ')
                 school = lines[0].strip()

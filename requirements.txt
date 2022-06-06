@@ -7,3 +7,5 @@ pyppeteer
 lxml
 pycryptodome
 progressbar
+pyinstaller
+tqdm

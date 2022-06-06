@@ -7,9 +7,10 @@
 """
 import aiohttp
 import asyncio
-from lxml import etree
 import requests
 import os
+from lxml import etree
+from tqdm import tqdm
 
 url_list = []
 for i in range(28):
@@ -58,7 +59,7 @@ def parse_html_have(html):
 
 
 def write_school_name(htmls):
-    for html in htmls:
+    for html in tqdm(htmls):
         school_list = parse_html(html)
         school_list_have = parse_html_have(html)
         for school in school_list:

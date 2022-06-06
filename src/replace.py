@@ -7,6 +7,7 @@
 """
 import re
 import os
+from tqdm import tqdm
 
 
 def alter(file, old_str, new_str):
@@ -26,11 +27,12 @@ def read_csv():
             for line in f:
                 f1.write(f"ren {line.split(',')[0]}.html {number}.html\n")
                 number += 1
-    os.system(" .\\AcquiredData\\school_need.bat")
+    os.system(".\\AcquiredData\\school_need.bat")
 
 
 def main():
-    for file in os.listdir("html"):
+    for file in tqdm(os.listdir("html")):
+        # for file in os.listdir("html"):
         file_name = os.path.join("html", file)
         file_name = file_name.replace("../", "")
         file_name = file_name.replace(r"\\", "/")

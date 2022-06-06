@@ -5,11 +5,12 @@
     @Author ：ARotterGoodMan
     @Date ：2022/5/27 15:48
 """
-import aiohttp
-import asyncio
-from lxml import etree
 import re
 import os
+import aiohttp
+import asyncio
+from tqdm import tqdm
+from lxml import etree
 
 province_list = ["11", "12", "13", "14", "15", "21", "22", "23", "31", "32", "33", "34", "35", "36", "37", "41", "42",
                  "43", "44", "45", "46", "50", "51", "52", "53", "54", "61", "62", "63", "64", "65"]
@@ -55,20 +56,20 @@ def parse_html(html):
     return school_list
 
 
-def write_province(datas):
-    for data in datas:
-        html = data[1]
-        school_list = parse_html(html)
-        for school in school_list:
-            school_name = school[0].strip()
-            if not os.path.exists("Province"):
-                os.makedirs("Province")
-            with open(f"Province/{data[0]}.txt", "a", encoding="utf-8") as f:
-                f.write(school_name + "\n")
+def write_province(data):
+    html = data[1]
+    school_list = parse_html(html)
+    for school in school_list:
+        school_name = school[0].strip()
+        if not os.path.exists("Province"):
+            os.makedirs("Province")
+        with open(f"Province/{data[0]}.txt", "a", encoding="utf-8") as f:
+            f.write(school_name + "\n")
 
 
 def main():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     datas = loop.run_until_complete(start_session())
-    write_province(datas)
+    for data in tqdm(datas):
+        write_province(data)
