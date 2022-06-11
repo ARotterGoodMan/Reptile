@@ -25,13 +25,15 @@ class Replace:
     @staticmethod
     def read_csv():
         with open("AcquiredData/school.csv", "r", encoding="utf-8") as f:
-            number = 0
+            nums = len(f.readlines())
+
+        with open("AcquiredData/school.csv", "r", encoding="utf-8") as f:
             with open("AcquiredData/school_need.bat", "a", encoding="utf-8") as f1:
                 f1.write("chcp 65001\n")
                 f1.write("cd html\n")
-                for line in f:
-                    f1.write(f"ren {line.split(',')[0]}.html {number}.html\n")
-                    number += 1
+                for i in range(nums):
+                    line = f.readline()
+                    f1.write(f"ren {line.split(',')[0]}.html {i}.html\n")
         os.system(".\\AcquiredData\\school_need.bat")
 
     def main(self):

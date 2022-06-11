@@ -56,23 +56,31 @@ class SchoolStart:
             school_list.append([school_name[i]])
         return school_list
 
+    def write_school(self, school_list):
+        for school in school_list:
+            school_name = school[0].strip()
+            school_href = school[1].strip()
+            if not os.path.exists("AcquiredData"):
+                os.makedirs("AcquiredData")
+            with open("AcquiredData/school.csv", "a", encoding="utf-8") as f:
+                f.write(school_name + "," + school_href + "\n")
+            with open("AcquiredData/all.txt", "a", encoding="utf-8") as f:
+                f.write(school_name + "\n")
+
+    def write_school_have(self, school_list_have):
+        for school in school_list_have:
+            school_name = school[0].strip()
+            if not os.path.exists("AcquiredData"):
+                os.makedirs("AcquiredData")
+            with open("AcquiredData/school_have.txt", "a", encoding="utf-8") as f:
+                f.write(school_name + "\n")
+
     def write_school_name(self, htmls):
         for html in tqdm(htmls):
             school_list = self.parse_html(html)
             school_list_have = self.parse_html_have(html)
-            for school in school_list:
-                school_name = school[0].strip()
-                school_href = school[1].strip()
-                if not os.path.exists("AcquiredData"):
-                    os.makedirs("AcquiredData")
-                with open("AcquiredData/school.csv", "a", encoding="utf-8") as f:
-                    f.write(school_name + "," + school_href + "\n")
-            for school in school_list_have:
-                school_name = school[0].strip()
-                if not os.path.exists("AcquiredData"):
-                    os.makedirs("AcquiredData")
-                with open("AcquiredData/school_have.txt", "a", encoding="utf-8") as f:
-                    f.write(school_name + "\n")
+            self.write_school(school_list)
+            self.write_school_have(school_list_have)
 
     def main(self):
         self.get_url_list()

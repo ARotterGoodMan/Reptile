@@ -5,7 +5,13 @@
     @Author ：ARotterGoodMan
     @Date ：2022/6/6 16:35
 """
-from src import school_start, selenium_webdriver, GetContent, province_start, replace
+from sys import exit
+from src import replace
+from src import GetContent
+from src import school_start
+from src import province_start
+from src import selenium_webdriver
+from src import pyppeteer_webdriver
 
 
 class Start:
@@ -14,6 +20,7 @@ class Start:
         self.SchoolStart = school_start.SchoolStart()
         self.ProvinceStart = province_start.ProvinceStart()
         self.SeleniumWebdriver = selenium_webdriver.SeleniumWebdriver()
+        self.PyppeteerWebdriver = pyppeteer_webdriver.PyppeteerWebdriver()
         self.Replace = replace.Replace()
 
     def school_start(self):
@@ -41,11 +48,14 @@ class Start:
     def replace(self):
         self.Replace.main()
 
+    def pyppeteer_webdriver(self):
+        self.PyppeteerWebdriver.main()
+
     def run(self):
         input('请输入任意键开始')
         self.school_start()
         self.confirm("链接获取", "进行内容链接获取")
-        self.selenium_webdriver()
+        self.pyppeteer_webdriver()
         self.confirm("内容链接获取", "进行内容链接获取")
         self.get_content()
         self.confirm("继续内容链接获取", "进行省份院校分类文件写入")
