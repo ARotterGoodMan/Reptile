@@ -5,11 +5,13 @@
     @Author ：ARotterGoodMan
     @Date ：2022/6/6 16:35
 """
+import time
 from sys import exit
 from src import replace
 from src import GetContent
 from src import school_start
 from src import province_start
+from src import asyncio_webdriver
 from src import selenium_webdriver
 from src import pyppeteer_webdriver
 
@@ -19,6 +21,7 @@ class Start:
         self.GetContent = GetContent.GetContent()
         self.SchoolStart = school_start.SchoolStart()
         self.ProvinceStart = province_start.ProvinceStart()
+        self.AsyncioWebdriver = asyncio_webdriver.AsyncioWebdriver()
         self.SeleniumWebdriver = selenium_webdriver.SeleniumWebdriver()
         self.PyppeteerWebdriver = pyppeteer_webdriver.PyppeteerWebdriver()
         self.Replace = replace.Replace()
@@ -39,6 +42,9 @@ class Start:
             elif choice == 'n':
                 exit()
 
+    def asyncio_webdriver(self):
+        self.AsyncioWebdriver.main()
+
     def selenium_webdriver(self):
         self.SeleniumWebdriver.main()
 
@@ -55,7 +61,7 @@ class Start:
         input('请输入任意键开始')
         self.school_start()
         self.confirm("链接获取", "进行内容链接获取")
-        self.pyppeteer_webdriver()
+        self.asyncio_webdriver()
         self.confirm("内容链接获取", "进行内容链接获取")
         self.get_content()
         self.confirm("继续内容链接获取", "进行省份院校分类文件写入")

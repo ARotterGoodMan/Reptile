@@ -26,7 +26,6 @@ class SeleniumWebdriver:
 
     @staticmethod
     def write_links(driver, school, url):
-
         driver.get(url)
         links = driver.find_elements(By.XPATH, '/html/body/div[1]/div[4]/div/div/div[2]/table/tbody/tr[1]/td[1]/a')
         with open('AcquiredData/school_links.txt', 'a', encoding='utf-8') as f:

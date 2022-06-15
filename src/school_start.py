@@ -80,7 +80,7 @@ class SchoolStart:
             school_list = self.parse_html(html)
             school_list_have = self.parse_html_have(html)
             self.write_school(school_list)
-            self.write_school_have(school_list_have)
+            # self.write_school_have(school_list_have)
 
     def main(self):
         self.get_url_list()
