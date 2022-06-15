@@ -5,7 +5,6 @@
     @Author ：ARotterGoodMan
     @Date ：2022/6/6 16:35
 """
-import time
 from sys import exit
 from src import replace
 from src import GetContent
@@ -18,13 +17,13 @@ from src import pyppeteer_webdriver
 
 class Start:
     def __init__(self):
+        self.Replace = replace.Replace()
         self.GetContent = GetContent.GetContent()
         self.SchoolStart = school_start.SchoolStart()
         self.ProvinceStart = province_start.ProvinceStart()
         self.AsyncioWebdriver = asyncio_webdriver.AsyncioWebdriver()
         self.SeleniumWebdriver = selenium_webdriver.SeleniumWebdriver()
         self.PyppeteerWebdriver = pyppeteer_webdriver.PyppeteerWebdriver()
-        self.Replace = replace.Replace()
 
     def school_start(self):
         self.SchoolStart.main()
